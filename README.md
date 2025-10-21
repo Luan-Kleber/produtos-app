@@ -49,6 +49,8 @@ Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A 
 
 ## ⚙️ Pré-requisitos (Instalação)
 
+-    PHP 8.x
+
 -   Clique ⬇️
 -   [Docker](https://docs.docker.com/get-started/get-docker/)
 -   [Docker-compose](https://docs.docker.com/compose/install/)
