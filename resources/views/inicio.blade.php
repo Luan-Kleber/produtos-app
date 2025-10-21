@@ -28,10 +28,10 @@
                 <hr>
 
                 <!-- Styles -->
-<link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
+                <link rel="stylesheet" href="{{ asset('assets/styles.css') }}">
 
-<!-- JS -->
-<script src="{{ asset('js/script.js') }}"></script>
+                <!-- JS -->
+                <script src="{{ asset('js/script.js') }}"></script>
 
                 <table id="tabela-produtos" class="table table-striped table-bordered" style="width:100%">
                     <thead class="table-dark">
