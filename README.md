@@ -1,4 +1,4 @@
-# 📦 API de Produtos Laravel + Docker
+# 📦 API de Produtos Laravel + Docker
 
 Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A aplicação consiste em um sistema de gerenciamento de produtos com funcionalidades de cadastro, listagem, edição e exclusão.
 
