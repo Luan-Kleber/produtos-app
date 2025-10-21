@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  title: API de Produtos
+  description: API para gerenciar produtos com autenticação JWT
+  version: 1.0.0
+servers:
+  - url: http://localhost/api
+paths:
+  /login:
+    post:
+      summary: Login do usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: user1
+                password:
+                  type: string
+                  example: senha123
+      responses:
+        "200":
+          description: Login efetuado com sucesso, retorna token e dados do usuário
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+        "401":
+          description: Credenciais inválidas
+
+  /logout:
+    post:
+      summary: Logout do usuário autenticado
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Logout realizado com sucesso
+
+  /produtos:
+    get:
+      summary: Listar produtos paginados
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Lista paginada de produtos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Produto"
+                  links:
+                    type: object
+                  meta:
+                    type: object
+
+    post:
+      summary: Criar um novo produto
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProdutoInput"
+      responses:
+        "201":
+          description: Produto criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Produto"
+
+  /produtos/{codigo}:
+    get:
+      summary: Obter um produto pelo código
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Produto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Produto"
+        "404":
+          description: Produto não encontrado
+
+    put:
+      summary: Atualizar produto pelo código
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProdutoInput"
+      responses:
+        "200":
+          description: Produto atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Produto"
+        "404":
+          description: Produto não encontrado
+
+    delete:
+      summary: Deletar produto pelo código
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Produto excluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "404":
+          description: Produto não encontrado
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Produto:
+      type: object
+      properties:
+        codigo:
+          type: string
+          example: PROD001
+        nome:
+          type: string
+          example: Produto Exemplo
+        descricao:
+          type: string
+          example: Descrição do produto
+        preco:
+          type: number
+          format: float
+          example: 99.9
+        quantidade_estoque:
+          type: integer
+          example: 10
+
+    ProdutoInput:
+      type: object
+      required:
+        - nome
+        - preco
+        - quantidade_estoque
+      properties:
+        nome:
+          type: string
+          example: Produto Exemplo
+        descricao:
+          type: string
+          example: Descrição do produto
+        preco:
+          type: number
+          format: float
+          example: 99.9
+        quantidade_estoque:
+          type: integer
+          example: 10
