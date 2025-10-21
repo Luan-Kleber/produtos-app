@@ -18,8 +18,16 @@ Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A 
 ├── Dockerfile             # Configura a imagem do app Laravel
 └── README.md
 ```
+---
 
---
+## 🔵 Login
+
+-    Padrão Login e Senha:
+```bash
+login: root
+senha: 1234
+```
+---
 
 ## 📸 Demonstrações
 
@@ -49,9 +57,10 @@ Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A 
 
 ## ⚙️ Pré-requisitos (Instalação)
 
--    PHP 8.x
 -   [Docker](https://docs.docker.com/get-started/get-docker/)
 -   [Docker-compose](https://docs.docker.com/compose/install/)
+
+---
 
 ## 💻 Como Rodar o Projeto
 
@@ -79,10 +88,16 @@ DB_USERNAME=root
 DB_PASSWORD=1234
 ```
 
+> Comando Terminais
+  . Se houver erros ao rodar os comandos no terminal, utilize 'sudo' antes do comando
+```bash
+ex: sudo docker-compose up -d --build
+```
+
 3. Subir os containers
 
 ```bash
-sudo docker-compose up -d --build
+docker-compose up -d --build
 ```
 
 Isso irá:
@@ -99,8 +114,9 @@ sudo docker exec -it produtos-app composer install
 5. Gerar a key do Laravel
 
 ```bash
-sudo docker exec -it produtos-app php artisan key:generate
+docker exec -it produtos-app php artisan key:generate
 ```
+---
 
 ## 🔐 Configurando Autenticação JWT
 
@@ -109,19 +125,19 @@ siga os passos abaixo:
 1. Instalar o pacote:
 
 ```bash
-sudo docker exec -it produtos-app composer require tymon/jwt-auth
+docker exec -it produtos-app composer require tymon/jwt-auth
 ```
 
 2. Publicar o provider do JWT:
 
 ```bash
-sudo docker exec -it produtos-app php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+docker exec -it produtos-app php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 ```
 
 3. Gerar a chave JWT:
 
 ```bash
-sudo docker exec -it produtos-app php artisan jwt:secret
+docker exec -it produtos-app php artisan jwt:secret
 ```
 
 4. Verificar o arquivo config/auth.php, definindo o guard api com:
@@ -138,17 +154,17 @@ sudo docker exec -it produtos-app php artisan jwt:secret
 5. Corrigir permissões (importante em ambientes Docker/Linux):
 
 ```bash
-sudo docker exec -it produtos-app chown -R www-data:www-data storage bootstrap/cache
-sudo docker exec -it produtos-app chmod -R 777 storage bootstrap/cache
+docker exec -it produtos-app chown -R www-data:www-data storage bootstrap/cache
+docker exec -it produtos-app chmod -R 777 storage bootstrap/cache
 
-sudo docker exec -it produtos-app -R www-data:www-data storage/api-docs
-sudo docker exec -it produtos-app chmod -R 775 storage/api-docs
+docker exec -it produtos-app -R www-data:www-data storage/api-docs
+docker exec -it produtos-app chmod -R 775 storage/api-docs
 ```
 
 6. Rodar as migrations e seeders:
 
 ```bash
-sudo docker exec -it produtos-app php artisan migrate --seed
+docker exec -it produtos-app php artisan migrate --seed
 ```
 
 7. Acessar banco de dados (opcional)
@@ -174,13 +190,13 @@ http://localhost:8080/api/documentation
 Ver logs do app
 
 ```bash
-sudo docker-compose logs -f produtos-app
+docker-compose logs -f produtos-app
 ```
 
 Acessar o container da aplicação
 
 ```bash
-sudo docker exec -it produtos-app bash
+docker exec -it produtos-app bash
 ```
 
 Parar os containers
@@ -194,7 +210,7 @@ docker-compose down
 Para rodar os testes automatizados (unitários e de feature) dentro do container Laravel, use:
 
 ```bash
-sudo docker exec -it produtos-app php artisan test
+docker exec -it produtos-app php artisan test
 ```
 
 ## ✅ Endpoints (Exemplos)
