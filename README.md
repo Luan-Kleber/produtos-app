@@ -50,8 +50,6 @@ Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A 
 ## ⚙️ Pré-requisitos (Instalação)
 
 -    PHP 8.x
-
--   Clique ⬇️
 -   [Docker](https://docs.docker.com/get-started/get-docker/)
 -   [Docker-compose](https://docs.docker.com/compose/install/)
 
@@ -84,7 +82,7 @@ DB_PASSWORD=1234
 3. Subir os containers
 
 ```bash
-docker-compose up -d --build
+sudo docker-compose up -d --build
 ```
 
 Isso irá:
@@ -95,13 +93,13 @@ Isso irá:
 4. Instalar as dependências
 
 ```bash
-docker exec -it produtos-app composer install
+sudo docker exec -it produtos-app composer install
 ```
 
 5. Gerar a key do Laravel
 
 ```bash
-docker exec -it produtos-app php artisan key:generate
+sudo docker exec -it produtos-app php artisan key:generate
 ```
 
 ## 🔐 Configurando Autenticação JWT
@@ -111,19 +109,19 @@ Caso sua API use autenticação por JWT, siga os passos abaixo:
 1. Instalar o pacote:
 
 ```bash
-docker exec -it produtos-app composer require tymon/jwt-auth
+sudo docker exec -it produtos-app composer require tymon/jwt-auth
 ```
 
 2. Publicar o provider do JWT:
 
 ```bash
-docker exec -it produtos-app php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+sudo docker exec -it produtos-app php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 ```
 
 3. Gerar a chave JWT:
 
 ```bash
-docker exec -it produtos-app php artisan jwt:secret
+sudo docker exec -it produtos-app php artisan jwt:secret
 ```
 
 4. Atualizar o arquivo config/auth.php, definindo o guard api com:
@@ -140,20 +138,20 @@ docker exec -it produtos-app php artisan jwt:secret
 5. Corrigir permissões (importante em ambientes Docker/Linux):
 
 ```bash
-docker exec -it produtos-app chown -R www-data:www-data storage bootstrap/cache
-docker exec -it produtos-app chmod -R 777 storage bootstrap/cache
+sudo docker exec -it produtos-app chown -R www-data:www-data storage bootstrap/cache
+sudo docker exec -it produtos-app chmod -R 777 storage bootstrap/cache
 
-docker exec -it produtos-app -R www-data:www-data storage/api-docs
-docker exec -it produtos-app chmod -R 775 storage/api-docs
+sudo docker exec -it produtos-app -R www-data:www-data storage/api-docs
+sudo docker exec -it produtos-app chmod -R 775 storage/api-docs
 ```
 
 6. Rodar as migrations e seeders:
 
 ```bash
-docker exec -it produtos-app php artisan migrate --seed
+sudo docker exec -it produtos-app php artisan migrate --seed
 ```
 
-7. banco de dados
+7. Acessar banco de dados (opcional)
 
 ```bash
 docker exec -it produtos-db bash psql -U root -d db_produtos
@@ -176,13 +174,13 @@ http://localhost:8080/api/documentation
 Ver logs do app
 
 ```bash
-docker-compose logs -f produtos-app
+sudo docker-compose logs -f produtos-app
 ```
 
 Acessar o container da aplicação
 
 ```bash
-docker exec -it produtos-app bash
+sudo docker exec -it produtos-app bash
 ```
 
 Parar os containers
@@ -196,7 +194,7 @@ docker-compose down
 Para rodar os testes automatizados (unitários e de feature) dentro do container Laravel, use:
 
 ```bash
-docker exec -it produtos-app php artisan test
+sudo docker exec -it produtos-app php artisan test
 ```
 
 ## ✅ Endpoints (Exemplos)
