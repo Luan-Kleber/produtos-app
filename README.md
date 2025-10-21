@@ -58,8 +58,8 @@ Este é um projeto de API RESTful desenvolvido em Laravel, utilizando Docker. A 
 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+git clone https://github.com/Luan-Kleber/produtos-app.git
+cd produtos-app
 ```
 
 2. Copiar o .env
@@ -104,7 +104,7 @@ sudo docker exec -it produtos-app php artisan key:generate
 
 ## 🔐 Configurando Autenticação JWT
 
-Caso sua API use autenticação por JWT, siga os passos abaixo:
+siga os passos abaixo:
 
 1. Instalar o pacote:
 
@@ -124,7 +124,7 @@ sudo docker exec -it produtos-app php artisan vendor:publish --provider="Tymon\J
 sudo docker exec -it produtos-app php artisan jwt:secret
 ```
 
-4. Atualizar o arquivo config/auth.php, definindo o guard api com:
+4. Verificar o arquivo config/auth.php, definindo o guard api com:
 
 ```bash
 'guards' => [
