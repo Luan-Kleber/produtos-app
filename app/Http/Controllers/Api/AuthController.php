@@ -10,6 +10,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    /**
+     * Faz o login via JWT
+     */
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
@@ -23,6 +26,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Logout invalidando o token JWT
+     */
     public function logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());

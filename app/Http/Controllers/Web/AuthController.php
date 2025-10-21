@@ -13,9 +13,6 @@ class AuthController extends Controller
         return redirect()->route('inicio');
     }
 
-    /**
-     * Exibe a página de login
-     */
     public function login()
     {
         $data = [
@@ -53,10 +50,8 @@ class AuthController extends Controller
             return redirect()->route('login')->withInput()->with('login_error', 'Erro no servidor');
         }
 
-        // Guarda o token na sessão
         $request->session()->put('jwt_token', $token);
 
-        // Também pode guardar o username se quiser
         $request->session()->put('username', $credentials['username']);
 
         return redirect()->route('index');

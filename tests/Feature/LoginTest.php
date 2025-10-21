@@ -12,19 +12,17 @@ class LoginTest extends TestCase
 
     public function test_login_gera_token()
     {
-        // Cria usuário fake
+
         $user = User::factory()->create([
             'username' => 'usuario_teste',
-            'password' => bcrypt('senha123'), // senha hash para autenticar
+            'password' => bcrypt('senha123'),
         ]);
 
-        // Faz POST para login com username e password
         $response = $this->postJson('/api/login', [
             'username' => 'usuario_teste',
             'password' => 'senha123',
         ]);
 
-        // Verifica se retornou status 200 e tem token na resposta
         $response->assertStatus(200)
                  ->assertJsonStructure(['token']);
 
